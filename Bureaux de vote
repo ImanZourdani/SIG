@@ -1,0 +1,31 @@
+```{r cars}
+summary(cars)
+```{r}
+getwd()
+library(sf)
+library(mapsf)
+st_read("bureaux.geojson")
+st_read("bordures.geojson")
+Bondy<- st_read ("bordures.geojson")
+Bureaux<- st_read ("bureaux.geojson")
+```
+
+Reading layer `bureaux' from data source 
+  `C:\Users\samir\OneDrive\Documents\Devoir Iman\bureaux.geojson' 
+  using driver `GeoJSON'
+Simple feature collection with 3 features and 7 fields
+Geometry type: GEOMETRY
+Dimension:     XY
+Bounding box:  xmin: 2.489392 ymin: 48.90572 xmax: 2.490485 ymax: 48.90634
+Geodetic CRS:  WGS 84
+
+```{r}
+ png (height = 800, width = 600, filename = "Iman_Bondy.png")
+> plot(Bondy$geometry,col = "grey", border = "grey")
+> plot(Bureaux$geometry, col = "red", border= "red", add = TRUE)
+> main= "Bureaux de vote de Bondy"
+dev.off
+```
+
+png 
+  2 
