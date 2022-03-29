@@ -1,2 +1,32 @@
 # SIG
 file:///C:/Users/samir/OneDrive/Documents/Maison%202%20cartes/Devoir-Maison-24.html
+> 
+```{r}
+data <- st_read("vote.gpkg")
+plot(data$geom, main = "Bureaux de vote")
+limite <- st_convex_hull(st_union(data$geom))
+class(limite)limite <- st_as_sf(limite)
+plot(limite, add = TRUE, col= NA, border = "red")
+```
+Nous venons alors de délimiter les bureaux de votes. 
+```{r}
+idfInsee <- st_read("bondyInsee <- st_intersection (idfInsee, limite)
+st_write(bondyInsee, "data/insee.gpkg", "bondy", delete_layer = T)insee.gpkg", "idf")
+
+```
+On a dès à présent choisir une variable 
+
+```{r}
+data <- read.csv("data/bondyInsee.csv", fileEncoding = "UTF-8")
+names(data)
+data <- read.csv("bondyInsee.csv", fileEncoding = "UTF-8")
+> barplot(data$Men_pauv, main = "carroyage INSEE Bondy, inégalités", xlab = "carreaux carroyage" ,
++         ylab = "Nb de ménages pauvres", col = "red", border = NA)
+```
+A présent que nous avons notre graphique avec la variable suivante: ménage pauvre. Nous allons changer la discrétisation. 
+
+```{r}
+summary(data$Men_pauv)
+hist(data$Men_pauv, breaks = c(0,5,10,20,40,200,300))
+```
+On a donc bien changer une variable quantitative pour une qualitative. 
