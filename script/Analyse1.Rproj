@@ -1,0 +1,70 @@
+---
+title: "projetFinale/1"
+author: "Iman Zourdani"
+date: "08/05/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+library(sf)
+library(mapsf)
+```
+
+
+```{r}
+library(mapsf)
+data <- st_read("BondyInsee.csv")
+```
+Pour ce script, j'ai choisi de représenter les ménages propriétaires de Bondy afin de pouvoir travailler sur une autre classe sociale que celle étudier en cours. 
+```{r}
+data <- read.csv("bondyInsee.csv", fileEncoding = "UTF-8")
+names(data)
+data <- read.csv("bondyInsee.csv", fileEncoding = "UTF-8")
+barplot(data$Men_prop, main = "carroyage INSEE Bondy Propriétaires", xlab = "carreaux carroyage" ,
+ylab = "Nb de ménages propriétaires", col = "red", border = NA)
+```
+A l'aide de ce graphique on peut observer le nombre de ménage propriétaire à Bondy, on va pouvoir à présent voir sur la carte leur représentation. 
+```{r}
+library(mapsf)
+data <- st_read("BondyInsee.csv")
+
+mf_map(data, type = "choro", pal = "Burg",
+       border = NA, var=Men_prop, leg_title = "Nb de ménages propriétaires", )
+mf_layout(title =  "Propriétaire à Bondy", credits = "INSEE Carroyage 200 m") 
+
+```
+Je n'ai pas pu faire la carte, pour une raison qui m'échappe, la variable "Men_prop" semble introuvable.
+
+Je vais faire une carte de vote comme indiquer dans l'énoncé. 
+
+```{r}
+library(sf)
+```
+
+```{r}
+vote <- st_read("vote.gpkg")
+str(vote)
+names(vote) [c(1,2)] <- c("GAUCHE", "DROITE")
+
+```
+
+```{r}
+library(mapsf)
+mf_export( vote, width = 1000, height = 500,  filename = "img/vote.png")
+par(mfrow = c(1,2))
+mf_map(vote, type = "choro", pal = "Burg",
+       border = NA, var = "Gauche")
+mf_layout(title = "vote gauche Bondy, municipales 2022", credits = "pv électoral\ncours SIG, mars 2022")
+```
+Encore une fois, la variable ne marche pas, m'indiquant que ce n'est pas un nom valide. 

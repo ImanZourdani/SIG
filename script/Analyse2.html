@@ -1,0 +1,41 @@
+---
+title: "Analyse2"
+author: "Iman Zourdani"
+date: "08/05/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+library(sf)
+library(mapsf)
+st_read("vote.gpkg")
+str("vote.gpkg")
+```
+```{r}
+names(vote) [c(1,2)] <- c("GAUCHE", "DROITE")
+```
+
+```{r}
+library(mapsf)
+mf_export( vote, width = 1000, height = 500,  filename = "img/vote.png")
+par(mfrow = c(1,2))
+mf_map(vote, type = "choro", pal = "Burg",
+       border = NA, var="GAUCHE")
+mf_layout(title = "vote gauche Bondy, municipales 2022", credits = "pv électoral\ncours SIG, mars 2022")
+mf_map(vote, type = "choro", pal = "Teal",
+       border = NA, var = "DROITE")
+mf_layout(title = "vote droite Bondy, municipales 2022", credits = "pv électoral\ncours SIG, mars 2022")
+dev.off()
+```
+
+Je ne pense pas pouvoir réussir ce devoir étant donner qu'il m'indique que "var is not numeric". Je souhaitais faire une carte représentant là où la Gauche et la Droite ont eu le plus de voix. Ensuite faire une discrétisation en mettant un histogramme des ménages propriétaires. A partir de cela j'aurais pu faire une carte qui aurait montrer ce que la majorité des ménages propriétaires ont voté. 
